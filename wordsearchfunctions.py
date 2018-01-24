@@ -123,7 +123,7 @@ def matrixToLatexFile(wordScramble, colDim):
 	output += endText
 	output += endDocText
 
-	os.system('cd wordsearch')
+	os.system('cd /home/AhhhHmmm/wordsearch')
 	document_title = 'testout'
 	with open(document_title + '.tex', 'w') as f:
 		f.write(output)
