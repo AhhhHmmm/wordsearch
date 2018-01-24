@@ -126,7 +126,8 @@ def matrixToLatexFile(wordScramble, colDim):
 	document_title = 'testout'
 	with open(document_title + '.tex', 'w') as f:
 		f.write(output)
-	os.system('pdflatex -synctex=1 -interaction=nonstopmode "{}".tex > /dev/null'.format(document_title))
+	os.system('cd wordsearch')
+	os.system('pdflatex -synctex=1 -interaction=nonstopmode {}.tex > /dev/null'.format(document_title))
 	os.system('convert -density 300 {}.pdf -quality 90 {}.png'.format(document_title, document_title))
 	os.system('convert -flatten {}.png {}.png'.format(document_title, document_title))
 	os.system('convert {}.png -fill white -alpha remove static/{}.png'.format(document_title, document_title))
