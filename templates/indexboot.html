@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wordsearch Generator</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<style type="text/css">
+		body {
+			background: linear-gradient(to right, #f2f4ff, #f7f8ff);
+		}
+
+		button {
+			margin-top: 10px;
+			margin-bottom: 10px: 
+		}
+
+		h1 {
+			font-family: 'Lobster', cursive;
+		}
+
+		img {
+			height: 300px;
+			background: white;
+			margin: auto;
+			display: block;
+			box-shadow: 5px 5px 5px gray;
+		}
+
+		div {
+			text-align: center;
+		}
+		
+		p {
+			text-align: left;
+		}
+
+		.form-entry {
+			text-align: left;
+		}
+
+		.text-field {
+			text-align: left;
+		}
+
+		input {
+			margin: auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<h1>Wordsearch</h1>
+		<div class="row col-lg-6 col-lg-offset-3">
+			<div class="col-xs-12">
+			<p><strong>Directions: </strong>Fill out the three fields below. The row and column dimensions specify how many letters across and tall the wordsearch will be. The word list is a list of words that will be included in the search. When you are done filling out the fields, press the Create Wordsearch button at the bottom of the page. If you are not happy with the search generated you can click the button again and it will generate a new search. When you are satisfied with the image created, you can download a higher resolution version by right clicking on the wordsearch image and saving it to your harddrive.</p>
+			</div>
+		</div>
+		<div class="row col-lg-6 col-lg-offset-3">
+			<div class="col-xs-12 col-sm-6 form-entry">
+				<label for="rowDim">Row Dimension: </label>
+				<input type="text" class="form-control" name="rowDim" id="rowDim">
+			</div>
+			<div class="col-xs-12 col-sm-6 form-entry">
+				<label for="colDim">Column Dimension: </label>
+				<input type="text" class="form-control" name="colDim" id="colDim">
+			</div>
+		</div>
+		<div class="row col-lg-6 col-lg-offset-3">
+			<div class="text-field col-xs-12">
+				<label for="words">Word List (seperate words using a comma, followed by a space ", "): </label><br>
+				<textarea class="form-control" rows="4" name="words" id="words"></textarea>
+			</div>
+		</div>
+		<div class="row col-xs-12">
+			<button id="submit" class="btn btn-default btn-primary">Create Wordsearch</button><br><br>
+		</div>
+		<div class="row col-xs-12">
+			<img id="puzzleImage" src="{{ url_for('static', filename='testout.png') }}">
+		</div>
+
+
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+		<script type="text/javascript">
+			var submitter = document.querySelector('#submit');
+
+			submitter.addEventListener("click", function() {
+				var rowDim = document.querySelector('#rowDim').value;
+				var colDim = document.querySelector('#colDim').value;
+				var words = document.querySelector('#words').value;
+				$.ajax({
+					data: {
+						rowDim : rowDim,
+						colDim : colDim,
+						words : words
+					},
+					type : 'POST',
+					url : '/makesearch'
+				})
+				.done(function(data) {
+					var puzzleImage = document.querySelector('#puzzleImage');
+					d = new Date();
+					puzzleImage.setAttribute('src', "{{ url_for('static', filename='testout.png') }}?" + d.getTime())
+					console.log(data);
+				})
+			});
+		</script>
+	</div>
+</body>
+</html>

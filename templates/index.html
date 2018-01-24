@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wordsearch Generator</title>
+
+	<style type="text/css">
+		body {
+			background: #EEEEEE;
+			font-family: Arial;
+		}
+
+		img {
+			height: 300px;
+			background: white;
+			margin: auto;
+			display: block;
+		}
+
+		div {
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<h1>Wordsearch</h1>
+	<button id="submit">Create Wordsearch</button><br><br>
+	<label for="rowDim">Row Dimension: </label>
+	<input type="text" name="rowDim" id="rowDim">
+	<label for="colDim">Column Dimension: </label>
+	<input type="text" name="colDim" id="colDim">
+	<br>
+	<br>
+	<label for="words">Words (seperate words using a comma, followed by a space ", "): </label><br>
+	<textarea rows="4" cols="100" name="words" id="words"></textarea>
+	<br>
+	<div>
+	<img id="puzzleImage" src="{{ url_for('static', filename='testout.png') }}">
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+		var submitter = document.querySelector('#submit');
+
+		submitter.addEventListener("click", function() {
+			var rowDim = document.querySelector('#rowDim').value;
+			var colDim = document.querySelector('#colDim').value;
+			var words = document.querySelector('#words').value;
+			$.ajax({
+				data: {
+					rowDim : rowDim,
+					colDim : colDim,
+					words : words
+				},
+				type : 'POST',
+				url : '/makesearch'
+			})
+			.done(function(data) {
+				var puzzleImage = document.querySelector('#puzzleImage');
+				d = new Date();
+				puzzleImage.setAttribute('src', "{{ url_for('static', filename='testout.png') }}?" + d.getTime())
+				console.log(data);
+			})
+		});
+	</script>
+</body>
+</html>
