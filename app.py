@@ -16,5 +16,5 @@ def makesearch():
 	matrixToLatexFile(wordSearch, colDim)
 	return jsonify({'sent' : 'complete'})
 
-if __name__ == '__main__':
-	app.run()
+# if __name__ == '__main__':
+# 	app.run()

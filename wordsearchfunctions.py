@@ -1,6 +1,6 @@
 import random
 import string
-import pyperclip
+# import pyperclip
 import numpy as np
 import os
 
@@ -105,7 +105,7 @@ def matrixToLatex(wordScramble, colDim):
 	output += ' \\\\ \n'.join(rows)
 	output += endText
 
-	pyperclip.copy(output)
+	# pyperclip.copy(output)
 
 def matrixToLatexFile(wordScramble, colDim):
 	pre_amb = '\\documentclass{standalone}\n\\usepackage{tikz}\n\n\\begin{document}\n'
