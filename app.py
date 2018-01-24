@@ -17,4 +17,4 @@ def makesearch():
 	return jsonify({'sent' : 'complete'})
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run()
