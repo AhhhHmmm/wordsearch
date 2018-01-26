@@ -1,6 +1,6 @@
 import random
 import string
-# import pyperclip
+import pyperclip
 import numpy as np
 import os
 
@@ -105,9 +105,9 @@ def matrixToLatex(wordScramble, colDim):
 	output += ' \\\\ \n'.join(rows)
 	output += endText
 
-	# pyperclip.copy(output)
+	pyperclip.copy(output)
 
-def matrixToLatexFile(wordScramble, colDim):
+def matrixToLatexFile(wordScramble, colDim, filename, directory):
 	pre_amb = '\\documentclass{standalone}\n\\usepackage{tikz}\n\n\\begin{document}\n'
 	endDocText = '\\end{document}'
 	introText = '\\begin{center}\n\\renewcommand{\\arraystretch}{1.5}{\n\\noindent\\begin{tabular}{' + 'c'*colDim + '}'
@@ -123,18 +123,18 @@ def matrixToLatexFile(wordScramble, colDim):
 	output += endText
 	output += endDocText
 
-	os.system('cd /home/AhhhHmmm/wordsearch')
-	document_title = 'testout'
+	os.system('cd ' + directory)
+	document_title = filename
 	with open(document_title + '.tex', 'w') as f:
 		f.write(output)
 	os.system('pdflatex -synctex=1 -interaction=nonstopmode {}.tex > /dev/null'.format(document_title))
 	os.system('convert -density 300 {}.pdf -quality 90 {}.png'.format(document_title, document_title))
 	os.system('convert -flatten {}.png {}.png'.format(document_title, document_title))
-	os.system('convert {}.png -fill white -alpha remove static/{}.png'.format(document_title, document_title))
+	os.system('convert {}.png -fill white -alpha remove {}.png'.format(document_title, document_title))
 	os.remove(document_title + '.aux')
 	os.remove(document_title + '.log')
 	os.remove(document_title + '.synctex.gz')
-	os.system('mv {}.png wordsearch/static'.format(document_title))
+	os.system('mv {}.png static'.format(document_title))
 	# os.system('open {}.pdf'.format(document_title))	
 
 	# pyperclip.copy(output)

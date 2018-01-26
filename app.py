@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, url_for
 from wordsearchfunctions import makeWordSearch, matrixToLatexFile
+import os
 
 app = Flask(__name__)
 
@@ -13,8 +14,10 @@ def makesearch():
 	colDim = int(request.form['colDim'])
 	words = request.form['words'].strip().split(', ')
 	wordSearch = makeWordSearch(words, rowDim, colDim)
-	matrixToLatexFile(wordSearch, colDim)
+	filename = 'testout'
+	directory = os.path.dirname(os.path.realpath(__file__))
+	matrixToLatexFile(wordSearch, colDim, filename, directory)
 	return jsonify({'sent' : 'complete'})
 
-# if __name__ == '__main__':
-# 	app.run()
+if __name__ == '__main__':
+	app.run()
