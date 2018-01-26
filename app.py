@@ -17,7 +17,7 @@ def makesearch():
 	filename = 'testout'
 	directory = os.path.dirname(os.path.realpath(__file__))
 	matrixToLatexFile(wordSearch, colDim, filename, directory)
-	return jsonify({'sent' : 'complete'})
+	return jsonify({'sent to' : directory})
 
 if __name__ == '__main__':
 	app.run()
