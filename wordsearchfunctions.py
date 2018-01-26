@@ -138,6 +138,7 @@ def matrixToLatexFile(wordScramble, colDim, filename, directory):
 	# os.system('open {}.pdf'.format(document_title))	
 
 	# pyperclip.copy(output)
+	return os.getcwd()
 
 if __name__ == '__main__':
 	rowDim = 10
