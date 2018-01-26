@@ -134,7 +134,7 @@ def matrixToLatexFile(wordScramble, colDim, filename, directory):
 	os.remove(document_title + '.aux')
 	os.remove(document_title + '.log')
 	os.remove(document_title + '.synctex.gz')
-	os.system('mv {}.png /static'.format(document_title))
+	os.system('mv {}.png static'.format(document_title))
 	# os.system('open {}.pdf'.format(document_title))	
 
 	# pyperclip.copy(output)
