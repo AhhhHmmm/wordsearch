@@ -123,7 +123,7 @@ def matrixToLatexFile(wordScramble, colDim, filename, directory):
 	output += endText
 	output += endDocText
 
-	os.system('cd ' + directory)
+	os.chdir(directory)
 	document_title = filename
 	with open(document_title + '.tex', 'w') as f:
 		f.write(output)
@@ -134,11 +134,11 @@ def matrixToLatexFile(wordScramble, colDim, filename, directory):
 	os.remove(document_title + '.aux')
 	os.remove(document_title + '.log')
 	os.remove(document_title + '.synctex.gz')
-	os.system('mv {}.png static'.format(document_title))
+	# os.system('mv {}.png static'.format(document_title))
 	# os.system('open {}.pdf'.format(document_title))	
 
 	# pyperclip.copy(output)
-	return os.getcwd()
+	return os.chdir('..')
 
 if __name__ == '__main__':
 	rowDim = 10

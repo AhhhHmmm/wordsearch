@@ -15,10 +15,12 @@ def makesearch():
 	words = request.form['words'].strip().split(', ')
 	wordSearch = makeWordSearch(words, rowDim, colDim)
 	filename = 'testout'
-	directory = os.path.dirname(os.path.realpath(__file__))
-	print(directory)
-	directory = matrixToLatexFile(wordSearch, colDim, filename, directory)
-	return jsonify({'sent to3' : directory})
+	save_directory = os.path.join(os.path.dirname(os.path.realpath(__file__)),'static')
+	print('Saving to directory: ' + save_directory)
+	matrixToLatexFile(wordSearch, colDim, filename, save_directory)
+	os.chdir(os.path.dirname(os.path.realpath(__file__)))
+	print('Current directory: ' + os.getcwd())
+	return jsonify({'sent to' : save_directory})
 
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True)
